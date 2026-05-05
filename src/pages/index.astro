@@ -1,0 +1,113 @@
+---
+import { getCollection } from 'astro:content';
+import LeadSection from '../components/sections/LeadSection.astro';
+import LogoIntro from '../components/sections/LogoIntro.astro';
+import NewsBlock from '../components/sections/NewsBlock.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { servicePages } from '../data/services';
+import { breadcrumbSchema, serviceSchema } from '../lib/schema';
+
+const featuredServices = servicePages.slice(0, 5);
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 2);
+---
+
+<BaseLayout
+  title="DynoCore | Чип-тюнинг и прошивка ЭБУ в Беларуси"
+  description="Чип-тюнинг, Stage 1/Stage 2, диагностика EGR/DPF/AdBlue и расчет прироста для автомобилей в Беларуси."
+  canonical="/"
+  jsonLd={[
+    serviceSchema('Чип-тюнинг и прошивка ЭБУ', 'Диагностика, резервная копия и калибровка ЭБУ под состояние автомобиля.', '/'),
+    breadcrumbSchema([{ name: 'Главная', path: '/' }])
+  ]}
+>
+  <LogoIntro />
+
+  <section class="section pt-12">
+    <div class="container grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div>
+        <h1 class="mt-4 text-4xl font-extrabold leading-tight md:text-7xl">
+          Точная настройка мощности. <span class="gradient-text">Без лишнего риска.</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-muted">
+          Прошивка ЭБУ с диагностикой, расчетом прироста и резервной копией заводской программы. Работаем с дизельными и бензиновыми автомобилями, Stage 1/Stage 2 и сложными вопросами EGR/DPF/AdBlue после проверки.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a class="focus-ring rounded-full bg-blue px-6 py-3 text-sm font-extrabold text-white shadow-glow transition hover:bg-blue/90" href="#lead-form" data-analytics-event="lead_cta_click" data-analytics-label="home_hero_calculate">Рассчитать прирост</a>
+          <a class="focus-ring rounded-full border border-white/10 px-6 py-3 text-sm font-extrabold text-text transition hover:border-gold/60" href="/chip-tyuning/">Как это работает</a>
+        </div>
+      </div>
+
+      <div class="glass rounded-[2rem] p-6">
+        <div class="rounded-3xl bg-gradient-to-br from-steel/80 to-ink p-6">
+          <p class="font-mono text-sm text-gold">ECU CALIBRATION</p>
+          <div class="mt-6 space-y-4">
+            {['Диагностика до работ', 'Резервная копия ЭБУ', 'Расчет под двигатель', 'Проверка после настройки'].map((item) => (
+              <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                <span class="text-sm font-semibold">{item}</span>
+                <span class="h-2 w-2 rounded-full bg-success"></span>
+              </div>
+            ))}
+          </div>
+          <p class="mt-6 text-sm leading-6 text-muted">Без fake-рейтингов и вымышленных графиков. Реальные кейсы публикуются только после подтверждения.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-graphite/35" aria-labelledby="services-title">
+    <div class="container">
+      <p class="eyebrow">Услуги</p>
+      <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {featuredServices.map((service) => (
+          <a class="glass group rounded-3xl p-6 transition hover:-translate-y-1 hover:border-blue/40" href={`/${service.slug}/`}>
+            <p class="text-sm font-bold text-gold">{service.eyebrow}</p>
+            <h3 class="mt-3 text-xl font-extrabold">{service.h1}</h3>
+            <p class="mt-3 text-sm leading-6 text-muted">{service.description}</p>
+            <span class="mt-5 inline-flex text-sm font-bold text-blue group-hover:text-text">Подробнее</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="approach-title">
+    <div class="container">
+      <p class="eyebrow">Подход</p>
+      <h2 id="approach-title" class="mt-3 text-3xl font-extrabold md:text-4xl">Калибровка под конкретный автомобиль</h2>
+      <p class="mt-4 max-w-3xl text-sm leading-7 text-muted">
+        Мы оцениваем состояние двигателя, тип ЭБУ, прошивку, пробег и цель владельца. Поэтому расчет прироста и ограничения определяются диагностикой, а не названием марки.
+      </p>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        {[
+          ['Проверяем исходное состояние', 'Считываем ошибки, смотрим параметры и фиксируем, можно ли безопасно переходить к настройке.'],
+          ['Сохраняем заводскую программу', 'Делаем резервную копию стоковой прошивки перед любыми изменениями в ЭБУ.'],
+          ['Настраиваем под задачу', 'Подбираем сценарий Stage 1/Stage 2, тягу, отклик и ограничения с учетом мотора и эксплуатации.']
+        ].map(([title, description]) => (
+          <div class="glass rounded-2xl p-5">
+            <span class="text-xl font-extrabold">{title}</span>
+            <p class="mt-3 text-sm leading-6 text-muted">{description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-graphite/35" aria-labelledby="blog-title">
+    <div class="container">
+      <p class="eyebrow">Экспертный блог</p>
+      <h2 id="blog-title" class="mt-3 text-3xl font-extrabold md:text-4xl">Полезные материалы</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {posts.map((post) => (
+          <a class="glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-blue/40" href={`/blog/${post.slug}/`}>
+            <time class="text-xs text-muted" datetime={post.data.pubDate.toISOString()}>{new Intl.DateTimeFormat('ru-BY').format(post.data.pubDate)}</time>
+            <h3 class="mt-3 text-xl font-extrabold">{post.data.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-muted">{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <NewsBlock />
+  <LeadSection />
+</BaseLayout>

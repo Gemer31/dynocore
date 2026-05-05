@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #080b10;
+  color: #e5e7eb;
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(47, 128, 237, 0.18), transparent 30rem),
+    radial-gradient(circle at 80% 12%, rgba(200, 169, 106, 0.13), transparent 26rem),
+    #080b10;
+  color: #e5e7eb;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: '';
+  background-image:
+    linear-gradient(rgba(229, 231, 235, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(229, 231, 235, 0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 75%);
+}
+
+::selection {
+  background: rgba(47, 128, 237, 0.4);
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  width: min(1120px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.glass {
+  border: 1px solid rgba(229, 231, 235, 0.1);
+  background: rgba(17, 24, 39, 0.78);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.section {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.eyebrow {
+  color: #c8a96a;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #e5e7eb, #93c5fd 55%, #c8a96a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+}
+
+.focus-ring:focus-visible {
+  outline-color: #2f80ed;
+}
+
+.logo-intro {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(3rem, 7vw, 5.5rem) clamp(1rem, 3vw, 2rem);
+}
+
+.logo-intro::before {
+  position: absolute;
+  inset: 10% 10% auto;
+  height: 18rem;
+  pointer-events: none;
+  content: '';
+  background:
+    radial-gradient(circle, rgba(47, 128, 237, 0.18), transparent 60%),
+    radial-gradient(circle at 70% 45%, rgba(200, 169, 106, 0.12), transparent 45%);
+  filter: blur(8px);
+}
+
+.logo-intro__panel {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  min-height: clamp(16rem, 34vw, 25rem);
+  padding: clamp(2rem, 6vw, 4rem) 1rem;
+}
+
+.logo-intro__logo {
+  width: min(100%, 44rem);
+  margin-top: clamp(1.2rem, 3vw, 2rem);
+  overflow: visible;
+}
+
+.logo-intro__trace {
+  stroke: #2f80ed;
+  stroke-width: 6.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 14px rgba(47, 128, 237, 0.34));
+  animation: logo-trace 1s 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.logo-intro__trace--tail {
+  stroke-width: 4.7;
+  opacity: 0.92;
+  animation-delay: 0.35s;
+}
+
+.logo-intro__word {
+  font-family: 'Arial Black', Impact, 'Manrope', 'Inter', system-ui, sans-serif;
+  font-size: 76px;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -4px;
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(5px);
+  animation: logo-wordmark-in 0.8s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.logo-intro__dyno {
+  fill: #e5e7eb;
+}
+
+.logo-intro__core {
+  fill: #c8a96a;
+}
+
+.logo-intro__slogan {
+  max-width: 36rem;
+  margin-top: 0.8rem;
+  color: #e5e7eb;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: clamp(0.82rem, 2vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: logo-copy-in 0.75s 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.prose {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.prose h2 {
+  margin-top: 2.4rem;
+  margin-bottom: 0.8rem;
+  color: #e5e7eb;
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.prose p {
+  margin-block: 1rem;
+  color: #9ca3af;
+}
+
+.prose a {
+  color: #2f80ed;
+  font-weight: 700;
+}
+
+@keyframes logo-trace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes logo-wordmark-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes logo-copy-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .logo-intro__trace {
+    stroke-dashoffset: 0;
+  }
+
+  .logo-intro__word,
+  .logo-intro__slogan {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .logo-intro__panel {
+    min-height: 14rem;
+  }
+
+  .logo-intro__trace {
+    stroke-width: 8;
+  }
+
+  .logo-intro__word {
+    font-size: 80px;
+  }
+
+  .logo-intro__slogan {
+    max-width: 18rem;
+    letter-spacing: 0.08em;
+  }
+}

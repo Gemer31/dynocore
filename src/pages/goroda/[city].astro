@@ -1,0 +1,60 @@
+---
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import Faq from '../../components/sections/Faq.astro';
+import LeadSection from '../../components/sections/LeadSection.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { cityPages, type CityPage } from '../../data/cities';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../lib/schema';
+
+export const getStaticPaths = () =>
+  cityPages.map((city) => ({
+    params: { city: city.slug },
+    props: { city }
+  }));
+
+type Props = {
+  city: CityPage;
+};
+
+const { city } = Astro.props;
+const path = `/goroda/${city.slug}/`;
+---
+
+<BaseLayout
+  title={city.title}
+  description={city.description}
+  canonical={path}
+  jsonLd={[
+    serviceSchema(`Чип-тюнинг ${city.name}`, city.description, path),
+    faqSchema(city.faq),
+    breadcrumbSchema([
+      { name: 'Главная', path: '/' },
+      { name: city.name, path }
+    ])
+  ]}
+>
+  <Breadcrumbs items={[{ href: path, label: city.name }]} />
+  <section class="section pt-10">
+    <div class="container">
+      <p class="eyebrow">Локальная страница</p>
+      <h1 class="mt-4 max-w-4xl text-4xl font-extrabold md:text-6xl">{city.h1}</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted">{city.intro}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {city.areas.map((area) => (
+          <span class="rounded-full border border-white/10 px-4 py-2 text-sm text-muted">{area}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-graphite/35">
+    <div class="container grid gap-4 md:grid-cols-3">
+      {['Расчет по данным авто до визита', 'Диагностика перед работами', 'Осторожные решения по EGR/DPF/AdBlue'].map((item) => (
+        <div class="glass rounded-2xl p-5 text-sm leading-6 text-muted">{item}</div>
+      ))}
+    </div>
+  </section>
+
+  <Faq items={city.faq} />
+  <LeadSection />
+</BaseLayout>

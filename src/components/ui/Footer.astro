@@ -1,0 +1,42 @@
+---
+import { footerNav, siteConfig } from '../../data/site';
+import Logo from './Logo.astro';
+---
+
+<footer class="border-t border-white/10 bg-graphite/60">
+  <div class="container grid gap-8 py-12 md:grid-cols-[1.2fr_1fr_1fr]">
+    <div>
+      <Logo muted />
+      <p class="mt-3 max-w-md text-sm leading-6 text-muted">{siteConfig.description}</p>
+      <p class="mt-4 text-sm text-muted">
+        Контент про EGR, DPF/FAP и AdBlue/SCR носит информационный характер. Итоговое решение принимается после диагностики автомобиля.
+      </p>
+    </div>
+
+    <div>
+      <p class="font-bold text-text">Разделы</p>
+      <div class="mt-4 grid grid-cols-2 gap-3 text-sm text-muted">
+        {footerNav.map((item) => (
+          <a class="transition hover:text-text" href={item.href}>{item.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <p class="font-bold text-text">Связь</p>
+      <div class="mt-4 space-y-2 text-sm text-muted">
+        <p>{siteConfig.phone}</p>
+        <p>{siteConfig.email}</p>
+        <p>{siteConfig.workingHours}</p>
+        <div class="flex gap-3 pt-2">
+          <a class="text-blue hover:text-text" href={siteConfig.messengers.telegram}>Telegram</a>
+          <a class="text-blue hover:text-text" href={siteConfig.messengers.viber}>Viber</a>
+          <a class="text-blue hover:text-text" href={siteConfig.messengers.whatsapp}>WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container border-t border-white/10 py-5 text-xs text-muted">
+    © {new Date().getFullYear()} DynoCore. Без вымышленных отзывов, рейтингов и неподтвержденных кейсов.
+  </div>
+</footer>

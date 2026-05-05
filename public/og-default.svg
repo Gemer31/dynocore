@@ -1,0 +1,10 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#080B10"/>
+  <circle cx="220" cy="120" r="260" fill="#2F80ED" fill-opacity="0.18"/>
+  <circle cx="970" cy="90" r="220" fill="#C8A96A" fill-opacity="0.14"/>
+  <path d="M120 420C260 290 390 500 530 360C660 230 780 330 910 250C1010 188 1070 192 1120 205" stroke="#2F80ED" stroke-width="10" stroke-linecap="round"/>
+  <path d="M120 470C300 360 430 555 580 430C730 305 840 420 1010 330" stroke="#C8A96A" stroke-width="6" stroke-linecap="round" stroke-opacity="0.85"/>
+  <text x="120" y="160" fill="#E5E7EB" font-family="Manrope, Arial, sans-serif" font-size="76" font-weight="800">DynoCore</text>
+  <text x="124" y="220" fill="#9CA3AF" font-family="Manrope, Arial, sans-serif" font-size="32" font-weight="600">Precise power calibration. Less unnecessary risk.</text>
+  <text x="124" y="550" fill="#C8A96A" font-family="IBM Plex Mono, Consolas, monospace" font-size="24" font-weight="600">ECU CALIBRATION - BELARUS</text>
+</svg>

@@ -1,0 +1,21 @@
+---
+import LeadForm from '../forms/LeadForm';
+import { siteConfig } from '../../data/site';
+---
+
+<section class="section" aria-labelledby="lead-title">
+  <div class="container grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+    <div>
+      <h2 id="lead-title" class="mt-3 text-3xl font-extrabold md:text-5xl">Получите расчет по вашему автомобилю</h2>
+      <p class="mt-5 text-lg leading-8 text-muted">
+        Отправьте данные авто, и мы уточним подходящий сценарий: Stage 1, Stage 2, диагностика или решение по EGR/DPF/AdBlue после проверки.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a class="focus-ring rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-text hover:border-blue/50" href={siteConfig.messengers.telegram} data-analytics-event="messenger_click" data-analytics-label="lead_telegram">Telegram</a>
+        <a class="focus-ring rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-text hover:border-blue/50" href={siteConfig.messengers.viber} data-analytics-event="messenger_click" data-analytics-label="lead_viber">Viber</a>
+        <a class="focus-ring rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-text hover:border-blue/50" href={siteConfig.messengers.whatsapp} data-analytics-event="messenger_click" data-analytics-label="lead_whatsapp">WhatsApp</a>
+      </div>
+    </div>
+    <LeadForm client:visible />
+  </div>
+</section>

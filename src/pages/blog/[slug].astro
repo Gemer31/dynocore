@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import LeadSection from '../../components/sections/LeadSection.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+
+export const getStaticPaths = async () => {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const path = `/blog/${post.slug}/`;
+---
+
+<BaseLayout
+  title={`${post.data.title} | DynoCore`}
+  description={post.data.description}
+  canonical={path}
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Главная', path: '/' },
+      { name: 'Блог', path: '/blog/' },
+      { name: post.data.title, path }
+    ])
+  ]}
+>
+  <Breadcrumbs items={[{ href: '/blog/', label: 'Блог' }, { href: path, label: post.data.title }]} />
+  <article class="section pt-10">
+    <div class="container max-w-3xl">
+      <p class="eyebrow">Экспертная статья</p>
+      <h1 class="mt-4 text-4xl font-extrabold leading-tight md:text-6xl">{post.data.title}</h1>
+      <p class="mt-5 text-sm text-muted">
+        <time datetime={post.data.pubDate.toISOString()}>{new Intl.DateTimeFormat('ru-BY').format(post.data.pubDate)}</time>
+        {' '} · {post.data.author}
+      </p>
+      <div class="prose prose-invert mt-10 max-w-none prose-headings:text-text prose-p:text-muted prose-a:text-blue prose-strong:text-text">
+        <Content />
+      </div>
+    </div>
+  </article>
+  <LeadSection />
+</BaseLayout>

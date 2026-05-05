@@ -1,0 +1,33 @@
+---
+import { mainNav, siteConfig } from '../../data/site';
+import Logo from './Logo.astro';
+---
+
+<header class="sticky top-0 z-50 border-b border-white/10 bg-ink/85 backdrop-blur">
+  <div class="container flex min-h-16 items-center justify-between gap-4">
+    <a href="/" class="focus-ring flex items-center gap-3 rounded-lg" aria-label="DynoCore главная">
+      <Logo />
+    </a>
+
+    <nav class="hidden items-center gap-5 text-sm font-semibold text-muted lg:flex" aria-label="Основная навигация">
+      {mainNav.map((item) => (
+        <a class="focus-ring rounded-md transition hover:text-text" href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a class="focus-ring hidden rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-text transition hover:border-blue/50 hover:text-blue md:inline-flex" href={siteConfig.messengers.telegram} data-analytics-event="messenger_click" data-analytics-label="header_telegram">
+        Telegram
+      </a>
+      <a class="focus-ring rounded-full bg-blue px-4 py-2 text-sm font-bold text-white shadow-glow transition hover:bg-blue/90" href="#lead-form" data-analytics-event="lead_cta_click" data-analytics-label="header_calculate">
+        Рассчитать
+      </a>
+    </div>
+  </div>
+
+  <nav class="container flex gap-3 overflow-x-auto border-t border-white/5 py-3 text-sm text-muted lg:hidden" aria-label="Мобильная навигация">
+    {mainNav.map((item) => (
+      <a class="focus-ring shrink-0 rounded-full border border-white/10 px-3 py-1.5" href={item.href}>{item.label}</a>
+    ))}
+  </nav>
+</header>

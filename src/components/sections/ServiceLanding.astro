@@ -1,0 +1,91 @@
+---
+import type { ServicePage } from '../../data/services';
+import Breadcrumbs from '../seo/Breadcrumbs.astro';
+import Faq from './Faq.astro';
+import LeadSection from './LeadSection.astro';
+
+type Props = {
+  page: ServicePage;
+};
+
+const { page } = Astro.props;
+---
+
+<Breadcrumbs items={[{ href: `/${page.slug}/`, label: page.h1 }]} />
+
+<section class="section pt-10">
+  <div class="container grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+    <div>
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1 class="mt-4 text-4xl font-extrabold leading-tight md:text-6xl">{page.h1}</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted">{page.intro}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#lead-form" class="focus-ring rounded-full bg-blue px-6 py-3 text-sm font-extrabold text-white shadow-glow transition hover:bg-blue/90" data-analytics-event="lead_cta_click" data-analytics-label={`service_${page.slug}`}>{page.cta}</a>
+        <a href="/ceny/" class="focus-ring rounded-full border border-white/10 px-6 py-3 text-sm font-extrabold text-text transition hover:border-gold/60">Цены и этапы</a>
+      </div>
+    </div>
+
+    <div class="glass rounded-3xl p-6">
+      <p class="text-sm font-bold text-gold">Что входит</p>
+      <ul class="mt-5 space-y-4">
+        {page.bullets.map((item) => (
+          <li class="flex gap-3 text-sm leading-6 text-muted">
+            <span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-success"></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-graphite/35">
+  <div class="container grid gap-8 lg:grid-cols-2">
+    <div>
+      <p class="eyebrow">Подход DynoCore</p>
+      <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">Настройка начинается с состояния автомобиля</h2>
+    </div>
+    <div class="grid gap-4">
+      {page.benefits.map((item) => (
+        <div class="glass rounded-2xl p-5 text-sm leading-6 text-muted">{item}</div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{page.caution && (
+  <section class="container py-8">
+    <div class="rounded-3xl border border-gold/30 bg-gold/10 p-6 text-sm leading-7 text-amber-100">
+      <strong class="text-gold">Важное ограничение:</strong> {page.caution}
+    </div>
+  </section>
+)}
+
+<section class="section">
+  <div class="container">
+    <p class="eyebrow">Процесс</p>
+    <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">Как проходит работа</h2>
+    <div class="mt-8 grid gap-4 md:grid-cols-5">
+      {page.process.map((item, index) => (
+        <div class="glass rounded-2xl p-5">
+          <span class="font-mono text-sm text-blue">0{index + 1}</span>
+          <p class="mt-4 text-sm leading-6 text-muted">{item}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="container pb-10">
+  <div class="glass rounded-3xl p-6">
+    <p class="eyebrow">Связанные страницы</p>
+    <div class="mt-4 flex flex-wrap gap-3">
+      {page.related.map((item) => (
+        <a class="focus-ring rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-text transition hover:border-blue/50" href={item.href}>{item.label}</a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<Faq items={page.faq} />
+<LeadSection />

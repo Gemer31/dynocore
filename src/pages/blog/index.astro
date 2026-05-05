@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout
+  title="Блог DynoCore | Чип-тюнинг, ЭБУ, EGR, DPF и AdBlue"
+  description="Экспертные материалы DynoCore о чип-тюнинге, диагностике ЭБУ, Stage 1/Stage 2 и системах EGR/DPF/AdBlue."
+  canonical="/blog/"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Главная', path: '/' },
+      { name: 'Блог', path: '/blog/' }
+    ])
+  ]}
+>
+  <section class="section pt-12">
+    <div class="container">
+      <p class="eyebrow">Блог</p>
+      <h1 class="mt-4 max-w-4xl text-4xl font-extrabold md:text-6xl">Экспертные материалы DynoCore</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted">
+        Собственный контент о диагностике, прошивке ЭБУ и ограничениях. RSS-новости остаются только внешними превью и не заменяют блог.
+      </p>
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        {posts.map((post) => (
+          <a class="glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-blue/40" href={`/blog/${post.slug}/`}>
+            <time class="text-xs text-muted" datetime={post.data.pubDate.toISOString()}>{new Intl.DateTimeFormat('ru-BY').format(post.data.pubDate)}</time>
+            <h2 class="mt-3 text-2xl font-extrabold">{post.data.title}</h2>
+            <p class="mt-3 text-sm leading-6 text-muted">{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import ServiceLanding from '../components/sections/ServiceLanding.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { servicePages, type ServicePage } from '../data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../lib/schema';
+
+export const getStaticPaths = () =>
+  servicePages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page }
+  }));
+
+type Props = {
+  page: ServicePage;
+};
+
+const { page } = Astro.props;
+const path = `/${page.slug}/`;
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  canonical={path}
+  jsonLd={[
+    serviceSchema(page.h1, page.description, path),
+    faqSchema(page.faq),
+    breadcrumbSchema([
+      { name: 'Главная', path: '/' },
+      { name: page.h1, path }
+    ])
+  ]}
+>
+  <ServiceLanding page={page} />
+</BaseLayout>

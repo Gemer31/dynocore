@@ -1,0 +1,47 @@
+---
+import { siteConfig } from '../../data/site';
+
+type Props = {
+  showTagline?: boolean;
+  muted?: boolean;
+};
+
+const { showTagline = false, muted = false } = Astro.props;
+---
+
+<span class={`inline-flex items-center ${muted ? 'text-muted' : 'text-text'}`}>
+  <span class="leading-none">
+    <svg viewBox="0 0 620 170" aria-hidden="true" class="h-12 w-44 overflow-visible sm:h-14 sm:w-56">
+      <path
+        d="M56 66 H180 C224 66 249 39 337 39 C422 39 455 72 508 72 C552 72 590 84 612 103"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="6.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class={muted ? 'text-muted' : 'text-blue'}
+      />
+      <path
+        d="M612 103 C596 100 582 101 570 108"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="4.7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class={muted ? 'text-muted' : 'text-blue'}
+      />
+      <g transform="skewX(-9)">
+        {
+          muted ? (
+            <text x="54" y="130" class="fill-muted" font-family="Arial Black, Impact, Manrope, Arial, sans-serif" font-size="76" font-style="italic" font-weight="900" letter-spacing="-4">DynoCore</text>
+          ) : (
+            <text x="54" y="130" font-family="Arial Black, Impact, Manrope, Arial, sans-serif" font-size="76" font-style="italic" font-weight="900" letter-spacing="-4">
+              <tspan class="fill-text">Dyno</tspan><tspan class="fill-gold">Core</tspan>
+            </text>
+          )
+        }
+      </g>
+    </svg>
+    {showTagline && <span class="mt-1 hidden text-xs leading-4 text-muted sm:block">{siteConfig.slogan}</span>}
+  </span>
+</span>

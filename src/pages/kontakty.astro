@@ -1,0 +1,51 @@
+---
+import LeadSection from '../components/sections/LeadSection.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+---
+
+<BaseLayout
+  title="Контакты DynoCore | Чип-тюнинг в Беларуси"
+  description="Контакты DynoCore: расчет чип-тюнинга, диагностика ЭБУ, Stage 1/Stage 2, EGR/DPF/AdBlue после проверки."
+  canonical="/kontakty/"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Главная', path: '/' },
+      { name: 'Контакты', path: '/kontakty/' }
+    ])
+  ]}
+>
+  <section class="section pt-12">
+    <div class="container grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+      <div>
+        <p class="eyebrow">Контакты</p>
+        <h1 class="mt-4 text-4xl font-extrabold md:text-6xl">Свяжитесь для расчета по вашему автомобилю</h1>
+        <p class="mt-6 text-lg leading-8 text-muted">
+          Отправьте марку, модель, двигатель, год и цель обращения. Для EGR/DPF/AdBlue полезны коды ошибок и фото сообщений на панели.
+        </p>
+      </div>
+      <div class="glass rounded-3xl p-6">
+        <div class="space-y-4 text-sm leading-6 text-muted">
+          <p><strong class="text-text">Телефон:</strong> {siteConfig.phone}</p>
+          <p><strong class="text-text">Email:</strong> {siteConfig.email}</p>
+          <p><strong class="text-text">График:</strong> {siteConfig.workingHours}</p>
+          <p><strong class="text-text">Адрес:</strong> {siteConfig.address}</p>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a class="focus-ring rounded-full bg-blue px-5 py-2.5 text-sm font-bold text-white" href={siteConfig.messengers.telegram}>Telegram</a>
+          <a class="focus-ring rounded-full border border-white/10 px-5 py-2.5 text-sm font-bold" href={siteConfig.messengers.viber}>Viber</a>
+          <a class="focus-ring rounded-full border border-white/10 px-5 py-2.5 text-sm font-bold" href={siteConfig.messengers.whatsapp}>WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container pb-12">
+    <div class="glass rounded-3xl p-6 text-sm leading-6 text-muted">
+      Карта и точный NAP-блок будут подключены после подтверждения адреса сервиса, УНП и режима работы. Пока страница не использует неподтвержденные бизнес-данные.
+    </div>
+  </section>
+
+  <LeadSection />
+</BaseLayout>

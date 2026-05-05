@@ -1,0 +1,41 @@
+---
+import LeadSection from '../components/sections/LeadSection.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+---
+
+<BaseLayout
+  title="Работы и кейсы DynoCore | Без вымышленных результатов"
+  description="Раздел будущих реальных кейсов DynoCore. Шаблоны публикаций без fake-отзывов, рейтингов и неподтвержденных графиков."
+  canonical="/raboty/"
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Главная', path: '/' },
+      { name: 'Работы', path: '/raboty/' }
+    ])
+  ]}
+>
+  <section class="section pt-12">
+    <div class="container">
+      <p class="eyebrow">Кейсы</p>
+      <h1 class="mt-4 max-w-4xl text-4xl font-extrabold md:text-6xl">Реальные работы появятся после подтвержденных проектов</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted">
+        Мы не публикуем вымышленные отзывы, рейтинги или графики до/после. Сейчас раздел содержит шаблоны того, как будут оформляться подтвержденные работы.
+      </p>
+    </div>
+  </section>
+
+  <section class="container pb-12">
+    <div class="grid gap-4 md:grid-cols-3">
+      {['Автомобиль и двигатель', 'Исходная диагностика', 'Подтвержденный результат'].map((item) => (
+        <div class="glass rounded-3xl p-6">
+          <p class="text-sm font-bold text-gold">Шаблон</p>
+          <h2 class="mt-3 text-xl font-extrabold">{item}</h2>
+          <p class="mt-3 text-sm leading-6 text-muted">Будет заполнено только реальными данными клиента, логами, фото или подтвержденной историей работ.</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <LeadSection />
+</BaseLayout>

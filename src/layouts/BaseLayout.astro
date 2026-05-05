@@ -1,0 +1,117 @@
+---
+import Footer from '../components/ui/Footer.astro';
+import Header from '../components/ui/Header.astro';
+import { siteConfig } from '../data/site';
+import { automotiveBusinessSchema, organizationSchema, websiteSchema, type JsonLd } from '../lib/schema';
+import { absoluteUrl, canonicalPath } from '../lib/seo';
+import '../styles/global.css';
+
+type Props = {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  jsonLd?: JsonLd[];
+  noindex?: boolean;
+};
+
+const {
+  title,
+  description,
+  canonical = Astro.url.pathname,
+  image = '/og-default.svg',
+  jsonLd = [],
+  noindex = false
+} = Astro.props;
+
+const canonicalUrl = absoluteUrl(canonicalPath(canonical));
+const ogImage = absoluteUrl(image);
+const jsonLdItems = [organizationSchema(), websiteSchema(), automotiveBusinessSchema(), ...jsonLd];
+
+const ga4Id = import.meta.env.PUBLIC_GA4_ID;
+const gtmId = import.meta.env.PUBLIC_GTM_ID;
+const yandexId = import.meta.env.PUBLIC_YANDEX_METRIKA_ID;
+---
+
+<!doctype html>
+<html lang="ru-BY">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={siteConfig.locale} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {gtmId && (
+      <script is:inline define:vars={{ gtmId }}>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var firstScript = document.getElementsByTagName('script')[0];
+        var tag = document.createElement('script');
+        tag.async = true;
+        tag.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtmId;
+        firstScript.parentNode.insertBefore(tag, firstScript);
+      </script>
+    )}
+    {ga4Id && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
+        <script is:inline define:vars={{ ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', ga4Id);
+        </script>
+      </>
+    )}
+    {yandexId && (
+      <script is:inline define:vars={{ yandexId }}>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+        ym(Number(yandexId), 'init', { clickmap:true, trackLinks:true, accurateTrackBounce:true });
+      </script>
+    )}
+    <script is:inline define:vars={{ yandexId }}>
+      document.addEventListener('click', function (event) {
+        if (!(event.target instanceof Element)) return;
+
+        var target = event.target.closest('[data-analytics-event]');
+        if (!target) return;
+
+        var eventName = target.getAttribute('data-analytics-event');
+        var label = target.getAttribute('data-analytics-label') || target.textContent.trim();
+        var params = { label: label };
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({ event: eventName }, params));
+        if (window.gtag) window.gtag('event', eventName, params);
+        if (yandexId && window.ym) window.ym(Number(yandexId), 'reachGoal', eventName, params);
+      });
+    </script>
+    {jsonLdItems.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
+  </head>
+  <body>
+    {gtmId && (
+      <noscript>
+        <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      </noscript>
+    )}
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

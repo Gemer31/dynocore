@@ -1,0 +1,46 @@
+---
+import LeadSection from '../components/sections/LeadSection.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { priceRows } from '../data/prices';
+import { breadcrumbSchema, serviceSchema } from '../lib/schema';
+---
+
+<BaseLayout
+  title="Цены на чип-тюнинг и диагностику | DynoCore"
+  description="Ориентиры стоимости чип-тюнинга, Stage 1/Stage 2 и диагностики EGR/DPF/AdBlue. Точный расчет после данных автомобиля."
+  canonical="/ceny/"
+  jsonLd={[
+    serviceSchema('Расчет цены чип-тюнинга', 'Ориентировочная стоимость и расчет работ по данным автомобиля.', '/ceny/'),
+    breadcrumbSchema([
+      { name: 'Главная', path: '/' },
+      { name: 'Цены', path: '/ceny/' }
+    ])
+  ]}
+>
+  <section class="section pt-12">
+    <div class="container">
+      <p class="eyebrow">Стоимость</p>
+      <h1 class="mt-4 max-w-4xl text-4xl font-extrabold md:text-6xl">Цены зависят от ЭБУ, двигателя и состояния автомобиля</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted">
+        Мы даем предварительный расчет по данным авто, но не называем гарантированные цифры прироста до диагностики. Ниже - безопасные ориентиры без скрытых обещаний.
+      </p>
+    </div>
+  </section>
+
+  <section class="container pb-12">
+    <div class="overflow-hidden rounded-3xl border border-white/10">
+      {priceRows.map((row) => (
+        <div class="grid gap-3 border-b border-white/10 bg-graphite/60 p-5 last:border-b-0 md:grid-cols-[1fr_180px_1.3fr]">
+          <strong>{row.service}</strong>
+          <span class="font-mono text-gold">{row.price}</span>
+          <span class="text-sm leading-6 text-muted">{row.note}</span>
+        </div>
+      ))}
+    </div>
+    <p class="mt-5 text-sm leading-6 text-muted">
+      Цена может измениться после диагностики, если обнаружены неисправности или требуется дополнительный доступ к блоку управления.
+    </p>
+  </section>
+
+  <LeadSection />
+</BaseLayout>
