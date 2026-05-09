@@ -12,6 +12,23 @@ const powerService = serviceBySlug.get('chip-tyuning');
 const ecologyServices = ['problemy-dpf-fap', 'diagnostika-egr', 'diagnostika-adblue-scr']
   .map((slug) => serviceBySlug.get(slug))
   .filter((service): service is ServicePage => Boolean(service));
+const ecologyCardContent: Record<string, { label: string; title: string; description: string }> = {
+  'problemy-dpf-fap': {
+    label: 'DPF / FAP',
+    title: 'Сажевый фильтр',
+    description: 'Диагностика ошибок, частых регенераций, потери тяги и причин засорения фильтра.'
+  },
+  'diagnostika-egr': {
+    label: 'EGR',
+    title: 'Клапан рециркуляции',
+    description: 'Проверка клапана, впуска, датчиков и причин рывков, дымности или нестабильных оборотов.'
+  },
+  'diagnostika-adblue-scr': {
+    label: 'AdBlue / SCR',
+    title: 'Система мочевины',
+    description: 'Разбор ошибок NOx, предупреждений о запрете запуска, насоса, форсунки и качества жидкости.'
+  }
+};
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 2);
 const serviceMedia: Record<string, { image: string; alt: string }> = {
   'chip-tyuning': {
@@ -76,7 +93,7 @@ const serviceMedia: Record<string, { image: string; alt: string }> = {
                 <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-blue/25 blur-3xl lg:h-20 lg:w-20" aria-hidden="true"></div>
               </div>
               <div class="p-4 lg:p-5">
-                <p class="text-xs font-bold text-gold md:text-sm">Настройка мощности</p>
+                <p class="text-xs font-bold text-gold md:text-sm">Настройка мощности автомобиля</p>
                 <h3 class="mt-1.5 line-clamp-2 text-lg font-extrabold leading-snug md:text-xl">{powerService.h1}</h3>
                 <p class="mt-2 max-w-2xl text-xs leading-6 text-muted line-clamp-2 md:text-sm md:leading-6">{powerService.intro}</p>
                 <div class="mt-3 flex flex-wrap gap-1.5">
@@ -93,28 +110,23 @@ const serviceMedia: Record<string, { image: string; alt: string }> = {
         <div class="glass rounded-3xl p-5 md:p-6">
           <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p class="text-sm font-bold text-gold">Экологические системы дизеля</p>
-              <h3 class="mt-3 text-2xl font-extrabold md:text-3xl">DPF/FAP, EGR и AdBlue/SCR проверяются вместе</h3>
+              <p class="text-sm font-bold text-gold">Экологические системы автомобиля</p>
+              <h3 class="mt-3 text-2xl font-extrabold md:text-3xl">DPF/FAP, EGR и AdBlue/SCR системы</h3>
               <p class="mt-3 max-w-2xl text-sm leading-6 text-muted">
-                Ошибка одной системы часто связана с соседними узлами: впуском, выпуском, датчиками, регенерацией и программной логикой ЭБУ.
+              Системы экологии в автомобиле неразрывно связаны друг с другом.
+               Ошибка одной системы часто может быть связана с соседними узлами: впуском, выпуском, датчиками.
+                Поэтому эти системы должны диагностироваться вместе.
               </p>
             </div>
-            <span class="w-fit rounded-full border border-blue/30 bg-blue/10 px-4 py-2 text-xs font-bold text-blue">Сначала диагностика</span>
+            <span class="inline-flex w-fit items-center justify-center rounded-full border border-blue/30 bg-blue/10 px-4 py-2 text-center text-xs font-bold leading-none text-blue">Сначала диагностика</span>
           </div>
 
-          <div class="mt-6 grid gap-2 rounded-3xl border border-white/10 bg-white/5 p-4 text-xs font-bold text-muted md:grid-cols-9 md:items-center" aria-label="Связь дизельных экологических систем">
-            {['Двигатель', 'EGR', 'DPF/FAP', 'SCR/AdBlue', 'Выпуск'].map((item, index) => (
-              <>
-                <span class="rounded-2xl bg-ink/70 px-3 py-3 text-center text-text">{item}</span>
-                {index < 4 && <span class="hidden text-center text-blue md:block" aria-hidden="true">→</span>}
-              </>
-            ))}
-          </div>
+ 
 
-          <div class="mt-6 grid gap-4 md:grid-cols-3">
+          <div class="mt-6 grid auto-rows-fr gap-4 md:grid-cols-3">
             {ecologyServices.map((service) => (
-              <a class="group rounded-3xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-blue/40" href={`/${service.slug}/`}>
-                <div class="relative h-36 overflow-hidden rounded-2xl">
+              <a class="group flex h-full flex-col rounded-3xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-blue/40" href={`/${service.slug}/`}>
+                <div class="relative h-36 shrink-0 overflow-hidden rounded-2xl">
                   <img
                     class="h-full w-full object-cover opacity-70 transition duration-500 group-hover:scale-105"
                     src={serviceMedia[service.slug]?.image}
@@ -124,10 +136,10 @@ const serviceMedia: Record<string, { image: string; alt: string }> = {
                   />
                   <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
                 </div>
-                <p class="mt-4 text-xs font-bold uppercase tracking-[0.18em] text-gold">{service.eyebrow}</p>
-                <h4 class="mt-2 text-xl font-extrabold">{service.eyebrow}</h4>
-                <p class="mt-3 text-sm leading-6 text-muted">{service.problem?.items?.[0] ?? service.description}</p>
-                <span class="mt-4 inline-flex text-sm font-bold text-blue group-hover:text-text">Открыть страницу</span>
+                <p class="mt-4 text-xs font-bold uppercase tracking-[0.18em] text-gold">{ecologyCardContent[service.slug].label}</p>
+                <h4 class="mt-2 text-xl font-extrabold">{ecologyCardContent[service.slug].title}</h4>
+                <p class="mt-3 flex-1 text-sm leading-6 text-muted">{ecologyCardContent[service.slug].description}</p>
+                <span class="mt-4 inline-flex text-sm font-bold text-blue group-hover:text-text">Подробнее</span>
               </a>
             ))}
           </div>

@@ -2,6 +2,8 @@
 import { getLatestNews } from '../../lib/news';
 
 const news = await getLatestNews(6);
+const newsFallbackImage = '/news-fallback.svg';
+const isNewsThumbImage = (src?: string) => Boolean(src && src !== newsFallbackImage);
 ---
 
 <section class="section bg-graphite/35" aria-labelledby="news-title">
@@ -15,7 +17,16 @@ const news = await getLatestNews(6);
     <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {news.map((item) => (
         <article class="glass flex h-full flex-col overflow-hidden rounded-3xl">
-          <img class="h-40 w-full shrink-0 object-cover opacity-85" src={item.image ?? '/news-fallback.svg'} alt="" loading="lazy" />
+          {isNewsThumbImage(item.image) ? (
+            <img class="h-40 w-full shrink-0 object-cover opacity-85" src={item.image} alt="" loading="lazy" />
+          ) : (
+            <img
+              src="/dynocore-logo-transparent.svg"
+              alt=""
+              class="h-40 w-full shrink-0 bg-[#060A12] object-contain object-center px-6 py-4 opacity-85"
+              loading="lazy"
+            />
+          )}
           <div class="flex flex-1 flex-col p-5">
             <div class="flex items-center justify-between gap-3 text-xs text-muted">
               <span>{item.source}</span>

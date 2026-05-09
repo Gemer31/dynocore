@@ -3,6 +3,6 @@
   <circle cx="120" cy="84" r="190" fill="#2F80ED" fill-opacity="0.2"/>
   <circle cx="700" cy="52" r="160" fill="#60A5FA" fill-opacity="0.14"/>
   <rect x="56" y="72" width="688" height="306" rx="30" fill="#0B1220" stroke="#1E293B" stroke-width="2"/>
-  <image href="/dynocore-logo-transparent.png" x="98" y="152" width="604" height="146" preserveAspectRatio="xMidYMid meet"/>
+  <image href="/dynocore-logo-transparent.svg" x="98" y="152" width="604" height="146" preserveAspectRatio="xMidYMid meet"/>
   <text x="96" y="340" fill="#E5E7EB" font-family="Manrope, Arial, sans-serif" font-size="30" font-weight="700">Новости и экспертные материалы DynoCore</text>
 </svg>
