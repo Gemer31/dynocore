@@ -20,52 +20,45 @@ const tickerItems = [
     <svg class="home-hero__chart" viewBox="0 0 760 420" focusable="false">
       <defs>
         <linearGradient id="homeHeroAfter" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="#2F80ED" />
-          <stop offset="72%" stop-color="#93C5FD" />
-          <stop offset="100%" stop-color="#C8A96A" />
+          <stop offset="0%" stop-color="#4D9BF7" />
+          <stop offset="72%" stop-color="#BFDBFE" />
+          <stop offset="100%" stop-color="#D4BC84" />
         </linearGradient>
         <linearGradient id="homeHeroArea" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#2F80ED" stop-opacity="0.24" />
+          <stop offset="0%" stop-color="#4D9BF7" stop-opacity="0.34" />
           <stop offset="100%" stop-color="#2F80ED" stop-opacity="0" />
         </linearGradient>
       </defs>
 
       <g class="home-hero__chart-grid">
-        <path d="M54 62H704M54 132H704M54 202H704M54 272H704M54 342H704" />
-        <path d="M122 48V362M246 48V362M370 48V362M494 48V362M618 48V362" />
+        <path d="M0 62H760M0 132H760M0 202H760M0 272H760M0 342H760" />
+        <path d="M122 48V420M246 48V420M370 48V420M494 48V420M618 48V420" />
       </g>
 
-      <path class="home-hero__chart-area" d="M70 322 C148 304 174 270 246 260 C318 250 332 210 412 194 C512 174 542 138 626 116 C674 103 698 92 718 76 L718 362 L70 362 Z" fill="url(#homeHeroArea)" />
-      <path class="home-hero__chart-before" pathLength="1" d="M70 306 C150 286 184 262 252 254 C332 244 366 216 434 208 C526 196 590 168 718 150" />
-      <path class="home-hero__chart-after" pathLength="1" stroke="url(#homeHeroAfter)" d="M70 322 C148 304 174 270 246 260 C318 250 332 210 412 194 C512 174 542 138 626 116 C674 103 698 92 718 76" />
+      <path class="home-hero__chart-area" d="M0 420 C82 374 142 308 246 270 C318 250 332 210 412 194 C512 174 542 138 626 116 C674 103 698 92 760 58 L760 420 Z" fill="url(#homeHeroArea)" />
+      <path class="home-hero__chart-before" pathLength="1" d="M0 402 C92 344 168 284 252 264 C332 244 366 216 434 208 C526 196 614 166 760 132" />
+      <path class="home-hero__chart-after" pathLength="1" stroke="url(#homeHeroAfter)" d="M0 420 C82 374 142 308 246 270 C318 250 332 210 412 194 C512 174 542 138 626 116 C674 103 698 92 760 58" />
     </svg>
   </div>
 
   <div class="container relative z-10">
     <div class="home-hero__copy">
-      <p class="eyebrow">Чип-тюнинг и прошивка ЭБУ в Беларуси</p>
-      <h1 id="home-hero-title" class="mt-5 max-w-4xl text-4xl font-extrabold leading-[1.02] tracking-[-0.04em] md:text-6xl">
-        Брось вызов стоку: <span class="gradient-text">почувствуй характер двигателя заново.</span>
-      </h1>
-      <p class="mt-6 max-w-2xl text-base leading-8 text-muted md:text-lg">
-        Раскрываем потенциал двигателя через диагностику и корректную калибровку ЭБУ: точнее отклик педали, ровнее тяга и спокойнее поведение в ежедневной езде.
-      </p>
+      <div class="home-hero__text">
+        <h1 id="home-hero-title" class="mt-5 max-w-4xl text-4xl font-extrabold leading-[1.02] tracking-[-0.04em] md:text-6xl">
+          Брось вызов стоку: <span class="gradient-text">почувствуй характер двигателя заново</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-base leading-8 text-muted md:text-lg">
+          Раскрываем потенциал двигателя через диагностику и корректную калибровку ЭБУ
+        </p>
+      </div>
 
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <div class="home-hero__actions">
         <a class="focus-ring inline-flex items-center justify-center rounded-full bg-blue px-6 py-3 text-sm font-extrabold text-white shadow-glow transition hover:bg-blue/90" href="#lead-form" data-analytics-event="lead_cta_click" data-analytics-label="home_hero_tuning_discuss">
           Обсудить настройку
         </a>
         <a class="focus-ring inline-flex items-center justify-center rounded-full border border-white/10 px-6 py-3 text-sm font-extrabold text-text transition hover:border-gold/60 hover:bg-white/5" href="/chip-tyuning/">
           Как проходит настройка
         </a>
-      </div>
-
-      <div class="mt-8 flex flex-wrap gap-2" aria-label="Ключевые принципы работы">
-        {trustItems.map((item) => (
-          <span class="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-bold text-text/90 backdrop-blur">
-            {item}
-          </span>
-        ))}
       </div>
     </div>
   </div>

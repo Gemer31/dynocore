@@ -4,15 +4,19 @@ import HomeHero from '../components/sections/HomeHero.astro';
 import LeadSection from '../components/sections/LeadSection.astro';
 import NewsBlock from '../components/sections/NewsBlock.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { servicePages } from '../data/services';
+import { servicePages, type ServicePage } from '../data/services';
 import { breadcrumbSchema, serviceSchema } from '../lib/schema';
 
-const featuredServices = servicePages.slice(0, 5);
+const serviceBySlug = new Map(servicePages.map((service) => [service.slug, service]));
+const powerService = serviceBySlug.get('chip-tyuning');
+const ecologyServices = ['problemy-dpf-fap', 'diagnostika-egr', 'diagnostika-adblue-scr']
+  .map((slug) => serviceBySlug.get(slug))
+  .filter((service): service is ServicePage => Boolean(service));
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 2);
 const serviceMedia: Record<string, { image: string; alt: string }> = {
   'chip-tyuning': {
-    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80',
-    alt: 'Темный спортивный автомобиль в премиальном освещении'
+    image: 'https://detunauto.by/site/assets/files/1058/26785674.jpg',
+    alt: 'Чип-тюнинг и диагностика: ноутбук на открытом моторном отсеке, анализ параметров двигателя'
   },
   'chip-tyuning-dizel': {
     image: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80',
@@ -23,12 +27,16 @@ const serviceMedia: Record<string, { image: string; alt: string }> = {
     alt: 'Бензиновый автомобиль на темной площадке'
   },
   'diagnostika-egr': {
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=900&q=80',
-    alt: 'Диагностика EGR перед выбором решения'
+    image: 'https://sts.parts/storage/units/big/perevirka-klapana-egr.jpg',
+    alt: 'Проверка и диагностика клапана EGR'
   },
   'problemy-dpf-fap': {
-    image: 'https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=900&q=80',
-    alt: 'Диагностика сажевого фильтра DPF/FAP'
+    image: 'https://rus-cars.org/wp-content/uploads/2020/10/sazhevi-filtr-1-770x420.jpg',
+    alt: 'Сажевый фильтр DPF/FAP'
+  },
+  'diagnostika-adblue-scr': {
+    image: 'https://www.avtoradosti.com.ua/files/2024/blog/AdBlue/4.jpg',
+    alt: 'Крышка бачка AdBlue / DEF на автомобиле'
   }
 };
 ---
@@ -47,28 +55,83 @@ const serviceMedia: Record<string, { image: string; alt: string }> = {
   <section class="section bg-graphite/35" aria-labelledby="services-title">
     <div class="container">
       <p class="eyebrow">Услуги</p>
-      <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {featuredServices.map((service) => (
-          <a class="glass group overflow-hidden rounded-3xl transition hover:-translate-y-1 hover:border-blue/40" href={`/${service.slug}/`}>
-            <div class="relative h-36 overflow-hidden rounded-t-3xl">
-              <img
-                class="h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-105"
-                src={serviceMedia[service.slug]?.image}
-                alt={serviceMedia[service.slug]?.alt}
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent"></div>
-              <div class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gold/20 blur-2xl" aria-hidden="true"></div>
-            </div>
-            <div class="p-6 pt-5">
-            <p class="text-sm font-bold text-gold">{service.eyebrow}</p>
-            <h3 class="mt-3 text-xl font-extrabold">{service.h1}</h3>
-            <p class="mt-3 text-sm leading-6 text-muted">{service.description}</p>
-            <span class="mt-5 inline-flex text-sm font-bold text-blue group-hover:text-text">Подробнее</span>
+      <h2 id="services-title" class="mt-3 text-3xl font-extrabold md:text-4xl">Выберите задачу</h2>
+      <p class="mt-4 max-w-3xl text-sm leading-7 text-muted">
+        Разделяем настройку мощности и решение проблем дизельных экологических систем. Так проще выбрать нужную страницу и не смешивать разные причины ошибок.
+      </p>
+
+      <div class="mt-8 grid gap-5">
+        {powerService && (
+          <a class="glass group overflow-hidden rounded-3xl transition hover:-translate-y-1 hover:border-blue/40" href={`/${powerService.slug}/`}>
+            <div class="grid lg:grid-cols-[30%_70%] lg:items-stretch">
+              <div class="relative h-24 overflow-hidden rounded-t-3xl lg:h-auto lg:min-h-0 lg:rounded-l-3xl lg:rounded-tr-none">
+                <img
+                  class="h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-105"
+                  src={serviceMedia[powerService.slug]?.image}
+                  alt={serviceMedia[powerService.slug]?.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-transparent"></div>
+                <div class="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-blue/25 blur-3xl lg:h-20 lg:w-20" aria-hidden="true"></div>
+              </div>
+              <div class="p-4 lg:p-5">
+                <p class="text-xs font-bold text-gold md:text-sm">Настройка мощности</p>
+                <h3 class="mt-1.5 line-clamp-2 text-lg font-extrabold leading-snug md:text-xl">{powerService.h1}</h3>
+                <p class="mt-2 max-w-2xl text-xs leading-6 text-muted line-clamp-2 md:text-sm md:leading-6">{powerService.intro}</p>
+                <div class="mt-3 flex flex-wrap gap-1.5">
+                  {powerService.bullets.map((item) => (
+                    <span class="rounded-full border border-white/10 bg-white/10 px-2 py-1 text-[10px] font-bold text-text md:px-3 md:py-1.5 md:text-xs">{item}</span>
+                  ))}
+                </div>
+                <span class="mt-3 inline-flex text-xs font-bold text-blue group-hover:text-text md:text-sm">Подробнее</span>
+              </div>
             </div>
           </a>
-        ))}
+        )}
+
+        <div class="glass rounded-3xl p-5 md:p-6">
+          <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p class="text-sm font-bold text-gold">Экологические системы дизеля</p>
+              <h3 class="mt-3 text-2xl font-extrabold md:text-3xl">DPF/FAP, EGR и AdBlue/SCR проверяются вместе</h3>
+              <p class="mt-3 max-w-2xl text-sm leading-6 text-muted">
+                Ошибка одной системы часто связана с соседними узлами: впуском, выпуском, датчиками, регенерацией и программной логикой ЭБУ.
+              </p>
+            </div>
+            <span class="w-fit rounded-full border border-blue/30 bg-blue/10 px-4 py-2 text-xs font-bold text-blue">Сначала диагностика</span>
+          </div>
+
+          <div class="mt-6 grid gap-2 rounded-3xl border border-white/10 bg-white/5 p-4 text-xs font-bold text-muted md:grid-cols-9 md:items-center" aria-label="Связь дизельных экологических систем">
+            {['Двигатель', 'EGR', 'DPF/FAP', 'SCR/AdBlue', 'Выпуск'].map((item, index) => (
+              <>
+                <span class="rounded-2xl bg-ink/70 px-3 py-3 text-center text-text">{item}</span>
+                {index < 4 && <span class="hidden text-center text-blue md:block" aria-hidden="true">→</span>}
+              </>
+            ))}
+          </div>
+
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            {ecologyServices.map((service) => (
+              <a class="group rounded-3xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-blue/40" href={`/${service.slug}/`}>
+                <div class="relative h-36 overflow-hidden rounded-2xl">
+                  <img
+                    class="h-full w-full object-cover opacity-70 transition duration-500 group-hover:scale-105"
+                    src={serviceMedia[service.slug]?.image}
+                    alt={serviceMedia[service.slug]?.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
+                </div>
+                <p class="mt-4 text-xs font-bold uppercase tracking-[0.18em] text-gold">{service.eyebrow}</p>
+                <h4 class="mt-2 text-xl font-extrabold">{service.eyebrow}</h4>
+                <p class="mt-3 text-sm leading-6 text-muted">{service.problem?.items?.[0] ?? service.description}</p>
+                <span class="mt-4 inline-flex text-sm font-bold text-blue group-hover:text-text">Открыть страницу</span>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </section>
