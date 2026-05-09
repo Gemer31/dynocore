@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CallChannelIcon, MessengerIcon, messengerLabels } from '../icons/MessengerIcon';
 import { readUtmParams, trackEvent } from '../../lib/analytics';
 import { leadSchema } from '../../lib/forms';
 
@@ -8,7 +9,7 @@ type FormValues = {
   engine: string;
   year: string;
   phone: string;
-  messenger: 'telegram' | 'viber' | 'whatsapp' | 'phone';
+  messenger: 'telegram' | 'viber' | 'phone';
   comment: string;
   consent: boolean;
   website: string;
@@ -97,7 +98,6 @@ export default function LeadForm() {
   return (
     <form id="lead-form" className="glass rounded-3xl p-5 md:p-7" onSubmit={submit} noValidate>
       <div className="mb-6">
-        <p className="eyebrow">Оставить заявку</p>
         <h2 className="mt-2 text-2xl font-extrabold text-text md:text-3xl">Оставить заявку</h2>
         <p className="mt-3 text-sm leading-6 text-muted">
           Обычно отвечаем в рабочее время в течение 15 минут.
@@ -140,15 +140,52 @@ export default function LeadForm() {
           <input className={`${inputClass} mt-2`} value={values.phone} onChange={(event) => updateField('phone', event.target.value)} placeholder="+375..." />
           {errors.phone && <span className="mt-1 block text-xs text-red-300">{errors.phone}</span>}
         </label>
-        <label className="block text-sm font-semibold">
-          Удобный канал
-          <select className={`${inputClass} mt-2`} value={values.messenger} onChange={(event) => updateField('messenger', event.target.value as FormValues['messenger'])}>
-            <option value="telegram">Telegram</option>
-            <option value="viber">Viber</option>
-            <option value="whatsapp">WhatsApp</option>
-            <option value="phone">Звонок</option>
-          </select>
-        </label>
+        <div className="block text-sm font-semibold">
+          <span className="block">Удобный канал</span>
+          <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Удобный канал связи">
+            {(
+              [
+                { value: 'telegram' as const, messenger: 'telegram' as const },
+                { value: 'viber' as const, messenger: 'viber' as const }
+              ] as const
+            ).map(({ value, messenger }) => (
+              <label
+                key={value}
+                className={`focus-ring inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border transition ${
+                  values.messenger === value ? 'border-blue bg-blue/15 text-blue' : 'border-white/10 text-muted hover:border-white/20 hover:text-text'
+                }`}
+              >
+                <input
+                  className="sr-only"
+                  type="radio"
+                  name="messenger"
+                  value={value}
+                  checked={values.messenger === value}
+                  onChange={() => updateField('messenger', value)}
+                />
+                <MessengerIcon messenger={messenger} className="h-5 w-5" />
+                <span className="sr-only">{messengerLabels[value]}</span>
+              </label>
+            ))}
+            <label
+              className={`focus-ring inline-flex h-11 min-w-[7.5rem] cursor-pointer items-center justify-center gap-2 rounded-xl border px-3 transition ${
+                values.messenger === 'phone' ? 'border-blue bg-blue/15 text-blue' : 'border-white/10 text-muted hover:border-white/20 hover:text-text'
+              }`}
+            >
+              <input
+                className="sr-only"
+                type="radio"
+                name="messenger"
+                value="phone"
+                checked={values.messenger === 'phone'}
+                onChange={() => updateField('messenger', 'phone')}
+              />
+              <CallChannelIcon className="h-5 w-5 shrink-0" />
+              <span className="text-xs font-bold text-text">{messengerLabels.phone}</span>
+            </label>
+          </div>
+          {errors.messenger && <span className="mt-1 block text-xs text-red-300">{errors.messenger}</span>}
+        </div>
       </div>
 
       <label className="mt-4 block text-sm font-semibold">
@@ -169,7 +206,7 @@ export default function LeadForm() {
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <button className="focus-ring rounded-full bg-blue px-6 py-3 text-sm font-extrabold text-white shadow-glow transition hover:bg-blue/90 disabled:cursor-not-allowed disabled:opacity-70" disabled={status === 'loading'}>
-          {status === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
+          {status === 'loading' ? 'Отправляем...' : 'Отправить'}
         </button>
         <p className="text-xs leading-5 text-muted">Форма защищена honeypot-полем. Внешние CRM/боты подключаются через env без хранения секретов на клиенте.</p>
       </div>

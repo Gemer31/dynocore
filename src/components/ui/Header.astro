@@ -1,4 +1,5 @@
 ---
+import { MessengerIcon } from '../icons/MessengerIcon';
 import { mainNav, siteConfig } from '../../data/site';
 import Logo from './Logo.astro';
 ---
@@ -16,11 +17,14 @@ import Logo from './Logo.astro';
     </nav>
 
     <div class="flex items-center gap-2">
-      <a class="focus-ring hidden rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-text transition hover:border-blue/50 hover:text-blue md:inline-flex" href={siteConfig.messengers.telegram} data-analytics-event="messenger_click" data-analytics-label="header_telegram">
-        Telegram
+      <a class="focus-ring hidden h-9 w-9 items-center justify-center text-text transition hover:border-blue/50 hover:text-blue md:inline-flex" href={siteConfig.messengers.telegram} data-analytics-event="messenger_click" data-analytics-label="header_telegram" aria-label="Telegram">
+        <MessengerIcon messenger="telegram" className="h-9 w-9" />
       </a>
-      <a class="focus-ring rounded-full bg-blue px-4 py-2 text-sm font-bold text-white shadow-glow transition hover:bg-blue/90" href="#lead-form" data-analytics-event="lead_cta_click" data-analytics-label="header_calculate">
-        Рассчитать
+      <a class="focus-ring hidden h-9 w-9 items-center justify-center text-text transition hover:border-blue/50 hover:text-blue md:inline-flex" href={siteConfig.messengers.instagram} data-analytics-event="messenger_click" data-analytics-label="header_instagram" aria-label="Instagram">
+        <MessengerIcon messenger="instagram" className="h-9 w-9" />
+      </a>
+      <a class="focus-ring flex h-9 items-center justify-center rounded-full bg-blue px-4 text-sm font-bold text-white shadow-glow transition hover:bg-blue/90" href="#lead-form" data-analytics-event="lead_cta_click" data-analytics-label="header_calculate">
+        Связаться
       </a>
     </div>
   </div>

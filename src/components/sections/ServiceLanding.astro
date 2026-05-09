@@ -21,20 +21,33 @@ const { page } = Astro.props;
       <p class="mt-6 max-w-3xl text-lg leading-8 text-muted">{page.intro}</p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a href="#lead-form" class="focus-ring rounded-full bg-blue px-6 py-3 text-sm font-extrabold text-white shadow-glow transition hover:bg-blue/90" data-analytics-event="lead_cta_click" data-analytics-label={`service_${page.slug}`}>{page.cta}</a>
-        <a href="/ceny/" class="focus-ring rounded-full border border-white/10 px-6 py-3 text-sm font-extrabold text-text transition hover:border-gold/60">Цены и этапы</a>
+        <a href="/ceny/" class="focus-ring rounded-full border border-white/10 px-6 py-3 text-sm font-extrabold text-text transition hover:border-gold/60">Цены и расчет</a>
       </div>
     </div>
 
-    <div class="glass rounded-3xl p-6">
-      <p class="text-sm font-bold text-gold">Что входит</p>
-      <ul class="mt-5 space-y-4">
-        {page.bullets.map((item) => (
-          <li class="flex gap-3 text-sm leading-6 text-muted">
-            <span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-success"></span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+    <div class="glass group relative overflow-hidden rounded-3xl p-3 transition hover:-translate-y-1 hover:border-blue/40">
+      {page.image && page.imageAlt && (
+        <img
+          class="h-full min-h-[27rem] w-full rounded-[1.35rem] object-cover opacity-75 transition duration-500 group-hover:scale-105"
+          src={page.image}
+          alt={page.imageAlt}
+          loading="eager"
+          decoding="async"
+        />
+      )}
+      <div class="absolute inset-3 rounded-[1.35rem] bg-gradient-to-t from-ink via-ink/70 to-ink/10"></div>
+      <div class="absolute inset-x-7 bottom-7">
+        <p class="text-sm font-bold text-gold">Что входит</p>
+        <ul class="mt-5 space-y-3">
+          {page.bullets.map((item) => (
+            <li class="flex gap-3 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm leading-6 text-muted backdrop-blur-md">
+              <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-success"></span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-blue/20 blur-3xl" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -57,6 +70,31 @@ const { page } = Astro.props;
   <section class="container py-8">
     <div class="rounded-3xl border border-gold/30 bg-gold/10 p-6 text-sm leading-7 text-amber-100">
       <strong class="text-gold">Важное ограничение:</strong> {page.caution}
+    </div>
+  </section>
+)}
+
+{page.contentBlock && (
+  <section class="section bg-graphite/35">
+    <div class="container">
+      <p class="eyebrow">{page.contentBlock.eyebrow}</p>
+      <div class="mt-3 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div>
+          <h2 class="text-3xl font-extrabold md:text-4xl">{page.contentBlock.title}</h2>
+          <p class="mt-4 text-sm leading-7 text-muted">{page.contentBlock.intro}</p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-3">
+          {page.contentBlock.items.map((item) => (
+            <article class="glass rounded-2xl p-5">
+              <h3 class="text-base font-extrabold text-text">{item.title}</h3>
+              <p class="mt-3 text-sm leading-6 text-muted">{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      {page.contentBlock.note && (
+        <p class="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm leading-7 text-muted">{page.contentBlock.note}</p>
+      )}
     </div>
   </section>
 )}

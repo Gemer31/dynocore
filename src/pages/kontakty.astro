@@ -1,5 +1,6 @@
 ---
 import LeadSection from '../components/sections/LeadSection.astro';
+import { MessengerIcon } from '../components/icons/MessengerIcon';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/site';
 import { breadcrumbSchema } from '../lib/schema';
@@ -7,7 +8,7 @@ import { breadcrumbSchema } from '../lib/schema';
 
 <BaseLayout
   title="Контакты DynoCore | Чип-тюнинг в Беларуси"
-  description="Контакты DynoCore: расчет чип-тюнинга, диагностика ЭБУ, Stage 1/Stage 2, EGR/DPF/AdBlue после проверки."
+  description="Контакты DynoCore: расчет чип-тюнинга, диагностика ЭБУ и вопросы EGR, DPF/FAP, AdBlue/SCR после проверки."
   canonical="/kontakty/"
   jsonLd={[
     breadcrumbSchema([
@@ -22,7 +23,7 @@ import { breadcrumbSchema } from '../lib/schema';
         <p class="eyebrow">Контакты</p>
         <h1 class="mt-4 text-4xl font-extrabold md:text-6xl">Свяжитесь для расчета по вашему автомобилю</h1>
         <p class="mt-6 text-lg leading-8 text-muted">
-          Отправьте марку, модель, двигатель, год и цель обращения. Для EGR/DPF/AdBlue полезны коды ошибок и фото сообщений на панели.
+          Отправьте марку, модель, двигатель, год и цель обращения. Для EGR, DPF/FAP и AdBlue/SCR полезны коды ошибок и фото сообщений на панели.
         </p>
       </div>
       <div class="glass rounded-3xl p-6">
@@ -33,11 +34,36 @@ import { breadcrumbSchema } from '../lib/schema';
           <p><strong class="text-text">Адрес:</strong> {siteConfig.address}</p>
         </div>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a class="focus-ring rounded-full bg-blue px-5 py-2.5 text-sm font-bold text-white" href={siteConfig.messengers.telegram}>Telegram</a>
-          <a class="focus-ring rounded-full border border-white/10 px-5 py-2.5 text-sm font-bold" href={siteConfig.messengers.viber}>Viber</a>
-          <a class="focus-ring rounded-full border border-white/10 px-5 py-2.5 text-sm font-bold" href={siteConfig.messengers.whatsapp}>WhatsApp</a>
+          <a class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue text-white shadow-glow hover:bg-blue/90" href={siteConfig.messengers.telegram} aria-label="Telegram"
+            ><MessengerIcon messenger="telegram" className="h-9 w-9" /></a
+          >
+          <a class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-text hover:border-blue/50" href={siteConfig.messengers.viber} aria-label="Viber"
+            ><MessengerIcon messenger="viber" className="h-9 w-9" /></a
+          >
+          <a class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-text hover:border-blue/50" href={siteConfig.messengers.instagram} aria-label="Instagram"
+            ><MessengerIcon messenger="instagram" className="h-9 w-9" /></a
+          >
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="container pb-8">
+    <div class="glass group relative overflow-hidden rounded-3xl p-3 transition hover:-translate-y-1 hover:border-blue/40">
+      <img
+        class="h-72 w-full rounded-[1.35rem] object-cover opacity-75 transition duration-500 group-hover:scale-105"
+        src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=1400&q=80"
+        alt="Темная сервисная зона для диагностики и записи автомобиля"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-3 rounded-[1.35rem] bg-gradient-to-r from-ink via-ink/70 to-ink/20"></div>
+      <div class="absolute bottom-8 left-8 right-8 max-w-xl">
+        <p class="eyebrow">Мастерская / диагностика / запись</p>
+        <h2 class="mt-3 text-2xl font-extrabold md:text-3xl">Начинаем с данных авто и технической проверки</h2>
+        <p class="mt-3 text-sm leading-6 text-muted">Перед прошивкой уточняем двигатель, состояние систем и цель владельца, чтобы подобрать корректный сценарий.</p>
+      </div>
+      <div class="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gold/20 blur-3xl" aria-hidden="true"></div>
     </div>
   </section>
 

@@ -1,31 +1,17 @@
 ---
 const slogan = 'МОЩНОСТЬ ПОД КОНТРОЛЕМ';
+const introLogoSrc = '/dynocore-logo-transparent.png';
+const introGlowLogoSrc = '/dynocore-logo-70-blue-2f80ed.png';
 ---
 
 <section class="logo-intro" aria-labelledby="logo-intro-title">
   <div class="container">
     <div class="logo-intro__panel">
-      <svg class="logo-intro__logo" viewBox="0 0 620 170" role="img" aria-labelledby="logo-intro-title logo-intro-desc">
-        <title id="logo-intro-title">DynoCore</title>
-        <desc id="logo-intro-desc">Логотип DynoCore с силуэтом автомобиля над названием бренда.</desc>
-        <path
-          class="logo-intro__trace"
-          d="M56 66 H180 C224 66 249 39 337 39 C422 39 455 72 508 72 C552 72 590 84 612 103"
-          fill="none"
-          pathLength="1"
-        />
-        <path
-          class="logo-intro__trace logo-intro__trace--tail"
-          d="M612 103 C596 100 582 101 570 108"
-          fill="none"
-          pathLength="1"
-        />
-        <g transform="skewX(-9)">
-          <text class="logo-intro__word" x="54" y="130">
-            <tspan class="logo-intro__dyno">Dyno</tspan><tspan class="logo-intro__core">Core</tspan>
-          </text>
-        </g>
-      </svg>
+      <h2 id="logo-intro-title" class="sr-only">DynoCore</h2>
+      <div class="logo-intro__logo-frame" role="img" aria-label="Логотип DynoCore с силуэтом автомобиля над названием бренда.">
+        <img class="logo-intro__logo logo-intro__logo--glow" src={introGlowLogoSrc} width="1536" height="1024" alt="" loading="eager" decoding="async" aria-hidden="true" />
+        <img class="logo-intro__logo logo-intro__logo--main" src={introLogoSrc} width="1363" height="329" alt="" loading="eager" decoding="async" />
+      </div>
       <p class="logo-intro__slogan">{slogan}</p>
     </div>
   </div>

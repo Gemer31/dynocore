@@ -1,6 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DynoCore">
-  <rect width="64" height="64" rx="18" fill="#080B10"/>
-  <path d="M9 27 C19 27 23 19 34 19 C44 19 49 28 56 31" fill="none" stroke="#2F80ED" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M37 34 H53 C49 42 42 47 32 47 C23 47 16 43 11 37 H27" fill="none" stroke="#E5E7EB" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M32 37 H53" fill="none" stroke="#C8A96A" stroke-width="4.2" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="brandBlue" x1="9" y1="19" x2="56" y2="31" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#2F80ED"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#05070C"/>
+  <path d="M9 27 C19 27 23 19 34 19 C44 19 49 28 56 31" fill="none" stroke="url(#brandBlue)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M37 34 H53 C49 42 42 47 32 47 C23 47 16 43 11 37 H27" fill="none" stroke="#F8FAFC" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 37 H53" fill="none" stroke="#2F80ED" stroke-width="4.2" stroke-linecap="round"/>
 </svg>

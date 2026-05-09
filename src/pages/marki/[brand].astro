@@ -41,16 +41,30 @@ const path = `/marki/${brand.slug}/`;
         <h1 class="mt-4 text-4xl font-extrabold md:text-6xl">{brand.h1}</h1>
         <p class="mt-6 text-lg leading-8 text-muted">{brand.intro}</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a class="focus-ring rounded-full bg-blue px-6 py-3 text-sm font-extrabold text-white shadow-glow" href="#lead-form">Рассчитать {brand.name}</a>
-          <a class="focus-ring rounded-full border border-white/10 px-6 py-3 text-sm font-extrabold" href="/stage-1/">Stage 1</a>
+          <a class="focus-ring rounded-full bg-blue px-6 py-3 text-sm font-extrabold text-white shadow-glow" href="#lead-form">Связаться</a>
+          <a class="focus-ring rounded-full border border-white/10 px-6 py-3 text-sm font-extrabold" href="/chip-tyuning/">Чип-тюнинг</a>
         </div>
       </div>
-      <div class="glass rounded-3xl p-6">
-        <p class="font-bold text-gold">Частые двигатели и семейства</p>
-        <div class="mt-5 flex flex-wrap gap-3">
-          {brand.engines.map((engine) => (
-            <span class="rounded-full border border-white/10 px-4 py-2 text-sm text-muted">{engine}</span>
-          ))}
+      <div class="glass group overflow-hidden rounded-3xl transition hover:-translate-y-1 hover:border-blue/40">
+        <div class="relative h-64 overflow-hidden rounded-t-3xl">
+          <img
+            class="h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-105"
+            src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1000&q=80"
+            alt={`Двигатель и электронные блоки для диагностики ${brand.name}`}
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent"></div>
+          <div class="absolute bottom-5 left-5 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-bold text-text backdrop-blur">ECU + engine scan</div>
+          <div class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-blue/20 blur-3xl" aria-hidden="true"></div>
+        </div>
+        <div class="p-6">
+          <p class="font-bold text-gold">Частые двигатели и семейства</p>
+          <div class="mt-5 flex flex-wrap gap-3">
+            {brand.engines.map((engine) => (
+              <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-muted">{engine}</span>
+            ))}
+          </div>
         </div>
       </div>
     </div>

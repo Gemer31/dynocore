@@ -12,14 +12,14 @@ export const siteConfig = {
   messengers: {
     telegram: 'https://t.me/dynocore',
     viber: 'viber://chat?number=%2B375290000000',
-    whatsapp: 'https://wa.me/375290000000'
+    whatsapp: 'https://wa.me/375290000000',
+    instagram: 'https://www.instagram.com/dynocore.by/'
   }
 };
 
 export const mainNav = [
   { href: '/chip-tyuning/', label: 'Чип-тюнинг' },
-  { href: '/stage-1/', label: 'Stage 1' },
-  { href: '/diagnostika-egr/', label: 'EGR/DPF/AdBlue' },
+  { href: '/diagnostika-egr/', label: 'Удаление экологии' },
   { href: '/ceny/', label: 'Цены' },
   { href: '/raboty/', label: 'Работы' },
   { href: '/blog/', label: 'Блог' },
@@ -31,5 +31,4 @@ export const footerNav = [
   { href: '/chip-tyuning-benzin/', label: 'Бензин' },
   { href: '/problemy-dpf-fap/', label: 'DPF/FAP' },
   { href: '/diagnostika-adblue-scr/', label: 'AdBlue/SCR' },
-  { href: '/goroda/minsk/', label: 'Минск' }
 ];

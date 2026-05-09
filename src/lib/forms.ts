@@ -7,7 +7,7 @@ export const leadSchema = z.object({
   year: z.string().trim().regex(/^(19|20)\d{2}$/, 'Укажите корректный год'),
   goal: z.string().trim().min(3, 'Выберите цель обращения').max(120),
   phone: z.string().trim().min(7, 'Укажите телефон или мессенджер').max(40),
-  messenger: z.enum(['telegram', 'viber', 'whatsapp', 'phone']),
+  messenger: z.enum(['telegram', 'viber', 'whatsapp', 'instagram', 'phone']),
   vin: z.string().trim().max(80).optional().or(z.literal('')),
   comment: z.string().trim().max(700).optional().or(z.literal('')),
   consent: z.literal(true, { message: 'Нужно согласие на обработку данных' }),

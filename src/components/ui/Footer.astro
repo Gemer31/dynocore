@@ -1,4 +1,5 @@
 ---
+import { MessengerIcon } from '../icons/MessengerIcon';
 import { footerNav, siteConfig } from '../../data/site';
 import Logo from './Logo.astro';
 ---
@@ -23,15 +24,21 @@ import Logo from './Logo.astro';
     </div>
 
     <div>
-      <p class="font-bold text-text">Связь</p>
+      <p class="font-bold text-text">Контакты</p>
       <div class="mt-4 space-y-2 text-sm text-muted">
         <p>{siteConfig.phone}</p>
         <p>{siteConfig.email}</p>
         <p>{siteConfig.workingHours}</p>
-        <div class="flex gap-3 pt-2">
-          <a class="text-blue hover:text-text" href={siteConfig.messengers.telegram}>Telegram</a>
-          <a class="text-blue hover:text-text" href={siteConfig.messengers.viber}>Viber</a>
-          <a class="text-blue hover:text-text" href={siteConfig.messengers.whatsapp}>WhatsApp</a>
+        <div class="flex gap-2 pt-2">
+          <a class="inline-flex h-9 w-9 items-center justify-center rounded-xl text-blue transition hover:bg-white/5 hover:text-text" href={siteConfig.messengers.telegram} aria-label="Telegram"
+            ><MessengerIcon messenger="telegram" className="h-9 w-9" /></a
+          >
+          <a class="inline-flex h-9 w-9 items-center justify-center rounded-xl text-blue transition hover:bg-white/5 hover:text-text" href={siteConfig.messengers.viber} aria-label="Viber"
+            ><MessengerIcon messenger="viber" className="h-9 w-9" /></a
+          >
+          <a class="inline-flex h-9 w-9 items-center justify-center rounded-xl text-blue transition hover:bg-white/5 hover:text-text" href={siteConfig.messengers.instagram} aria-label="Instagram"
+            ><MessengerIcon messenger="instagram" className="h-9 w-9" /></a
+          >
         </div>
       </div>
     </div>

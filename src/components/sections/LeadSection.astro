@@ -1,5 +1,6 @@
 ---
 import LeadForm from '../forms/LeadForm';
+import { MessengerIcon } from '../icons/MessengerIcon';
 import { siteConfig } from '../../data/site';
 ---
 
@@ -8,12 +9,36 @@ import { siteConfig } from '../../data/site';
     <div>
       <h2 id="lead-title" class="mt-3 text-3xl font-extrabold md:text-5xl">Получите расчет по вашему автомобилю</h2>
       <p class="mt-5 text-lg leading-8 text-muted">
-        Отправьте данные авто, и мы уточним подходящий сценарий: Stage 1, Stage 2, диагностика или решение по EGR/DPF/AdBlue после проверки.
+        Отправьте данные авто, и мы уточним подходящий сценарий: чип-тюнинг, диагностика или решение по EGR, DPF/FAP и AdBlue/SCR после проверки.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
-        <a class="focus-ring rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-text hover:border-blue/50" href={siteConfig.messengers.telegram} data-analytics-event="messenger_click" data-analytics-label="lead_telegram">Telegram</a>
-        <a class="focus-ring rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-text hover:border-blue/50" href={siteConfig.messengers.viber} data-analytics-event="messenger_click" data-analytics-label="lead_viber">Viber</a>
-        <a class="focus-ring rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-text hover:border-blue/50" href={siteConfig.messengers.whatsapp} data-analytics-event="messenger_click" data-analytics-label="lead_whatsapp">WhatsApp</a>
+        <a class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-text hover:border-blue/50" href={siteConfig.messengers.telegram} data-analytics-event="messenger_click" data-analytics-label="lead_telegram" aria-label="Telegram"
+          ><MessengerIcon messenger="telegram" className="h-9 w-9" /></a
+        >
+        <a class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-text hover:border-blue/50" href={siteConfig.messengers.viber} data-analytics-event="messenger_click" data-analytics-label="lead_viber" aria-label="Viber"
+          ><MessengerIcon messenger="viber" className="h-9 w-9" /></a
+        >
+        <a class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-text hover:border-blue/50" href={siteConfig.messengers.instagram} data-analytics-event="messenger_click" data-analytics-label="lead_instagram" aria-label="Instagram"
+          ><MessengerIcon messenger="instagram" className="h-9 w-9" /></a
+        >
+      </div>
+      <div class="glass group relative mt-8 overflow-hidden rounded-3xl p-3 transition hover:-translate-y-1 hover:border-blue/40">
+        <img
+          class="h-56 w-full rounded-[1.35rem] object-cover opacity-75 transition duration-500 group-hover:scale-105"
+          src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=900&q=80"
+          alt="Диагностика автомобиля с ноутбуком и OBD-оборудованием"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute inset-3 rounded-[1.35rem] bg-gradient-to-t from-ink via-ink/55 to-transparent"></div>
+        <div class="absolute bottom-7 left-7 right-7 flex items-end justify-between gap-4">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-gold">Diagnostic preview</p>
+            <p class="mt-2 text-sm font-semibold text-text">Данные авто, ошибки и цель настройки в одном запросе</p>
+          </div>
+          <span class="shrink-0 rounded-full border border-blue/40 bg-blue/20 px-3 py-2 text-xs font-extrabold text-white shadow-glow backdrop-blur">Расчет за 15 минут</span>
+        </div>
+        <div class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-gold/20 blur-3xl" aria-hidden="true"></div>
       </div>
     </div>
     <LeadForm client:visible />

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import HomeHero from '../components/sections/HomeHero.astro';
 import LeadSection from '../components/sections/LeadSection.astro';
-import LogoIntro from '../components/sections/LogoIntro.astro';
 import NewsBlock from '../components/sections/NewsBlock.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { servicePages } from '../data/services';
@@ -9,61 +9,64 @@ import { breadcrumbSchema, serviceSchema } from '../lib/schema';
 
 const featuredServices = servicePages.slice(0, 5);
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 2);
+const serviceMedia: Record<string, { image: string; alt: string }> = {
+  'chip-tyuning': {
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80',
+    alt: 'Темный спортивный автомобиль в премиальном освещении'
+  },
+  'chip-tyuning-dizel': {
+    image: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80',
+    alt: 'Диагностика двигателя в сервисной зоне'
+  },
+  'chip-tyuning-benzin': {
+    image: 'https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?auto=format&fit=crop&w=900&q=80',
+    alt: 'Бензиновый автомобиль на темной площадке'
+  },
+  'diagnostika-egr': {
+    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=900&q=80',
+    alt: 'Диагностика EGR перед выбором решения'
+  },
+  'problemy-dpf-fap': {
+    image: 'https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=900&q=80',
+    alt: 'Диагностика сажевого фильтра DPF/FAP'
+  }
+};
 ---
 
 <BaseLayout
   title="DynoCore | Чип-тюнинг и прошивка ЭБУ в Беларуси"
-  description="Чип-тюнинг, Stage 1/Stage 2, диагностика EGR/DPF/AdBlue и расчет прироста для автомобилей в Беларуси."
+  description="Чип-тюнинг, диагностика ЭБУ, удаление экологии после проверки и расчет прироста для автомобилей в Беларуси."
   canonical="/"
   jsonLd={[
     serviceSchema('Чип-тюнинг и прошивка ЭБУ', 'Диагностика, резервная копия и калибровка ЭБУ под состояние автомобиля.', '/'),
     breadcrumbSchema([{ name: 'Главная', path: '/' }])
   ]}
 >
-  <LogoIntro />
-
-  <section class="section pt-12">
-    <div class="container grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-      <div>
-        <h1 class="mt-4 text-4xl font-extrabold leading-tight md:text-7xl">
-          Точная настройка мощности. <span class="gradient-text">Без лишнего риска.</span>
-        </h1>
-        <p class="mt-6 max-w-2xl text-lg leading-8 text-muted">
-          Прошивка ЭБУ с диагностикой, расчетом прироста и резервной копией заводской программы. Работаем с дизельными и бензиновыми автомобилями, Stage 1/Stage 2 и сложными вопросами EGR/DPF/AdBlue после проверки.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a class="focus-ring rounded-full bg-blue px-6 py-3 text-sm font-extrabold text-white shadow-glow transition hover:bg-blue/90" href="#lead-form" data-analytics-event="lead_cta_click" data-analytics-label="home_hero_calculate">Рассчитать прирост</a>
-          <a class="focus-ring rounded-full border border-white/10 px-6 py-3 text-sm font-extrabold text-text transition hover:border-gold/60" href="/chip-tyuning/">Как это работает</a>
-        </div>
-      </div>
-
-      <div class="glass rounded-[2rem] p-6">
-        <div class="rounded-3xl bg-gradient-to-br from-steel/80 to-ink p-6">
-          <p class="font-mono text-sm text-gold">ECU CALIBRATION</p>
-          <div class="mt-6 space-y-4">
-            {['Диагностика до работ', 'Резервная копия ЭБУ', 'Расчет под двигатель', 'Проверка после настройки'].map((item) => (
-              <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                <span class="text-sm font-semibold">{item}</span>
-                <span class="h-2 w-2 rounded-full bg-success"></span>
-              </div>
-            ))}
-          </div>
-          <p class="mt-6 text-sm leading-6 text-muted">Без fake-рейтингов и вымышленных графиков. Реальные кейсы публикуются только после подтверждения.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HomeHero />
 
   <section class="section bg-graphite/35" aria-labelledby="services-title">
     <div class="container">
       <p class="eyebrow">Услуги</p>
       <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {featuredServices.map((service) => (
-          <a class="glass group rounded-3xl p-6 transition hover:-translate-y-1 hover:border-blue/40" href={`/${service.slug}/`}>
+          <a class="glass group overflow-hidden rounded-3xl transition hover:-translate-y-1 hover:border-blue/40" href={`/${service.slug}/`}>
+            <div class="relative h-36 overflow-hidden rounded-t-3xl">
+              <img
+                class="h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-105"
+                src={serviceMedia[service.slug]?.image}
+                alt={serviceMedia[service.slug]?.alt}
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent"></div>
+              <div class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gold/20 blur-2xl" aria-hidden="true"></div>
+            </div>
+            <div class="p-6 pt-5">
             <p class="text-sm font-bold text-gold">{service.eyebrow}</p>
             <h3 class="mt-3 text-xl font-extrabold">{service.h1}</h3>
             <p class="mt-3 text-sm leading-6 text-muted">{service.description}</p>
             <span class="mt-5 inline-flex text-sm font-bold text-blue group-hover:text-text">Подробнее</span>
+            </div>
           </a>
         ))}
       </div>
@@ -81,7 +84,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.getTim
         {[
           ['Проверяем исходное состояние', 'Считываем ошибки, смотрим параметры и фиксируем, можно ли безопасно переходить к настройке.'],
           ['Сохраняем заводскую программу', 'Делаем резервную копию стоковой прошивки перед любыми изменениями в ЭБУ.'],
-          ['Настраиваем под задачу', 'Подбираем сценарий Stage 1/Stage 2, тягу, отклик и ограничения с учетом мотора и эксплуатации.']
+          ['Настраиваем под задачу', 'Подбираем тягу, отклик и ограничения с учетом мотора, топлива, ресурса узлов и эксплуатации.']
         ].map(([title, description]) => (
           <div class="glass rounded-2xl p-5">
             <span class="text-xl font-extrabold">{title}</span>

@@ -9,6 +9,10 @@ const site = process.env.SITE_URL ?? 'https://dynocore.by';
 
 export default defineConfig({
   site,
+  redirects: {
+    '/stage-1': '/chip-tyuning',
+    '/stage-2': '/chip-tyuning'
+  },
   integrations: [
     tailwind({ applyBaseStyles: false }),
     mdx(),
